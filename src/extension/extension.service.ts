@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateExtensionDto } from './dto/create-extension.dto';
 import { UpdateExtensionDto } from './dto/update-extension.dto';
+import { Extension, ExtensionDocument } from 'src/schemas/extension.schema';
 
 @Injectable()
 export class ExtensionService {
-  create(createExtensionDto: CreateExtensionDto) {
-    return 'This action adds a new extension';
+
+  constructor(@InjectModel(Extension.name) private extensionModel: Model<ExtensionDocument>) { }
+
+  // Create one
+  async create(createExtensionDto: CreateExtensionDto): Promise<Extension> {
+    const createdExtension = await new this.extensionModel(createExtensionDto).save();
+    return createdExtension
   }
 
-  findAll() {
-    return `This action returns all extension`;
+  // Find all
+  async findAll() {
+    return await this.extensionModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} extension`;
+  // Find one
+  async findOne(id: number) {
+    return await this.extensionModel.findOne({ id });
+
   }
 
-  update(id: number, updateExtensionDto: UpdateExtensionDto) {
-    return `This action updates a #${id} extension`;
+  // Update one
+  async update(id: number, updateExtensionDto: UpdateExtensionDto) {
+    return this.extensionModel.updateOne({ id }, { $set: { ...updateExtensionDto } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} extension`;
+  // Remove one
+  async remove(id: number) {
+    return await this.extensionModel.deleteOne({ id });
   }
 }

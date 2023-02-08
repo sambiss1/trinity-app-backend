@@ -6,7 +6,7 @@ export type CompanyDocument = HydratedDocument<Company>;
 
 @Schema()
 export class Company {
-    @Prop()
+    @Prop({ required: true })
     name: string;
 
     @Prop()
@@ -27,7 +27,7 @@ export class Company {
     @Prop()
     email: string;
 
-    @Prop()
+    @Prop([String])
     phone_number: string[];
 }
 

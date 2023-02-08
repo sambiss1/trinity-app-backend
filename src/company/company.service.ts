@@ -8,25 +8,30 @@ import { Company, CompanyDocument } from 'src/schemas/company.schema';
 @Injectable()
 export class CompanyService {
   constructor(@InjectModel(Company.name) private companyModel: Model<CompanyDocument>) { }
+
+  //  add or create new company
   async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
     const createdCompany = new this.companyModel(createCompanyDto);
     return createdCompany.save();
-    
   }
 
-  findAll() {
-    return `This action returns all company`;
+  // Find all companies
+  async findAll() {
+    return this.companyModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  // Find one company
+  async findOne(id: number) {
+    return this.companyModel.findOne({ id });
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  // Update one company
+  async update(id: number, updateCompanyDto: UpdateCompanyDto) {
+    return this.companyModel.updateOne({ id }, { $set: { ...updateCompanyDto } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  // remove one company
+  async remove(id: number) {
+    return this.companyModel.deleteOne({ id });
   }
 }

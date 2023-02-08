@@ -36,4 +36,9 @@ export class ExtensionService {
   async remove(id: number) {
     return await this.extensionModel.deleteOne({ id });
   }
+
+  // remove many 
+  async deleteAll() {
+    return await this.extensionModel.deleteMany();
+  }
 }

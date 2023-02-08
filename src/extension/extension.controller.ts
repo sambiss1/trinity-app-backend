@@ -5,7 +5,7 @@ import { UpdateExtensionDto } from './dto/update-extension.dto';
 
 @Controller('extension')
 export class ExtensionController {
-  constructor(private readonly extensionService: ExtensionService) {}
+  constructor(private readonly extensionService: ExtensionService) { }
 
   @Post()
   create(@Body() createExtensionDto: CreateExtensionDto) {
@@ -31,4 +31,13 @@ export class ExtensionController {
   remove(@Param('id') id: string) {
     return this.extensionService.remove(+id);
   }
+
+  @Delete()
+  deleteAll() {
+    return this.extensionService.deleteAll();
+  }
+
+  // remove(@Param('id') id: string) {
+  //   return this.extensionService.remove(+id);
+  // }
 }

@@ -8,8 +8,10 @@ import { Company, CompanyDocument } from 'src/schemas/company.schema';
 @Injectable()
 export class CompanyService {
   constructor(@InjectModel(Company.name) private companyModel: Model<CompanyDocument>) { }
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
+    const createdCompany = new this.companyModel(createCompanyDto);
+    return createdCompany.save();
+    
   }
 
   findAll() {

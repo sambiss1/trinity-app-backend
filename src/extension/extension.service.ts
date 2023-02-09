@@ -18,12 +18,12 @@ export class ExtensionService {
 
   // Find all
   async findAll() {
-    return await this.extensionModel.find();
+    return await this.extensionModel.find().populate("company");
   }
 
   // Find one
   async findOne(id: number) {
-    return await this.extensionModel.findOne({ id });
+    return await this.extensionModel.findOne({ id }).populate("company");
 
   }
 

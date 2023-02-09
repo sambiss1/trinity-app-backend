@@ -7,7 +7,7 @@ import { UpdateExtensionDto } from './dto/update-extension.dto';
 export class ExtensionController {
   constructor(private readonly extensionService: ExtensionService) { }
 
-  @Post()
+  @Post("/add")
   create(@Body() createExtensionDto: CreateExtensionDto) {
     return this.extensionService.create(createExtensionDto);
   }

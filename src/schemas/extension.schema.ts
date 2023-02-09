@@ -3,6 +3,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose'
 import { Company } from './company.schema';
+import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
+
 
 export type ExtensionDocument = HydratedDocument<Extension>;
 
@@ -24,4 +26,4 @@ export class Extension {
     company: Company;
 }
 
-export const ExtensionSchema = SchemaFactory.createForClass(Extension);
+export const ExtensionSchema = SchemaFactory.createForClass(Extension).plugin(softDeletePlugin);

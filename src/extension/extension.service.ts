@@ -4,11 +4,12 @@ import { Model } from 'mongoose';
 import { CreateExtensionDto } from './dto/create-extension.dto';
 import { UpdateExtensionDto } from './dto/update-extension.dto';
 import { Extension, ExtensionDocument } from 'src/schemas/extension.schema';
+import { SoftDeleteModel } from "soft-delete-plugin-mongoose";
 
 @Injectable()
 export class ExtensionService {
 
-  constructor(@InjectModel(Extension.name) private extensionModel: Model<ExtensionDocument>) { }
+  constructor(@InjectModel(Extension.name) private extensionModel: SoftDeleteModel<ExtensionDocument>) { }
 
   // Create one
   async create(createExtensionDto: CreateExtensionDto): Promise<Extension> {
@@ -34,7 +35,11 @@ export class ExtensionService {
 
   // Remove one
   async remove(id: number) {
-    return await this.extensionModel.deleteOne({ id });
+    const deleted = this.extensionModel.softDelete({ _id: id });
+    return deleted;
+
+
+    // return await this.extensionModel.deleteOne({ id });
   }
 
   // remove many 

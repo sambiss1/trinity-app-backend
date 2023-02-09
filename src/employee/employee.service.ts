@@ -4,28 +4,46 @@ import { Model } from 'mongoose';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee, EmployeeDocument } from 'src/schemas/employee.schema';
+import { SoftDeleteModel } from "soft-delete-plugin-mongoose";
+
 
 @Injectable()
 export class EmployeeService {
-  constructor(@InjectModel(Employee.name) private extensionModel: Model<EmployeeDocument>) { }
+  constructor(@InjectModel(Employee.name) private extensionModel: SoftDeleteModel<EmployeeDocument>) { }
 
-  create(createEmployeeDto: CreateEmployeeDto) {
-    return 'This action adds a new employee';
+  // Creat employee
+  async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
+    const createdEmplyee = await new this.extensionModel(createEmployeeDto).save();
+    return createdEmplyee
   }
 
-  findAll() {
-    return `This action returns all employee`;
+  // Find all 
+  async findAll() {
+    return this.extensionModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  // Find one
+  async findOne(id: number) {
+    return (await this.extensionModel.findOne({ id })).populated("extension")
+    // return `This action returns a #${id} employee`;
   }
 
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
+
+  // Update one employee
+  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
+    return this.extensionModel.updateOne({ id }, { $set: { ...updateEmployeeDto } });
+    // return `This action updates a #${id} employee`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  // Remove one employee
+  async remove(id: number) {
+    const deleted = this.extensionModel.softDelete({ _id: id });
+    return deleted;
+    // return `This action removes a #${id} employee`;
+  }
+
+  // Remove many
+  async deleteAll() {
+    return this.extensionModel.deleteMany();
   }
 }

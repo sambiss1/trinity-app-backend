@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Extension } from './extension.schema';
+import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type EmployeeDocument = HydratedDocument<Employee>;
 
@@ -35,4 +36,4 @@ export class Employee {
     extension: Extension;
 }
 
-export const EmployeeSchema = SchemaFactory.createForClass(Employee);
+export const EmployeeSchema = SchemaFactory.createForClass(Employee).plugin(softDeletePlugin);

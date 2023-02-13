@@ -30,7 +30,19 @@ export class Employee {
     number_of_child: number;
 
     @Prop()
-    rank: string;
+    position: string;
+
+    @Prop()
+    salary: number;
+
+    @Prop()
+    prime: string;
+
+    @Prop()
+    family_allowance: number;
+
+    @Prop()
+    currency: string; 
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Extension' })
     extension: Extension;

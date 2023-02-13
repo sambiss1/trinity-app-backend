@@ -9,6 +9,9 @@ export type PayrollListingDocument = HydratedDocument<PayrollListing>;
 @Schema()
 export class PayrollListing {
     @Prop({ required: true })
+    year: string;
+
+    @Prop({ required: true })
     month: string;
 
     @Prop()

@@ -6,12 +6,13 @@ import { CompanyModule } from './company/company.module';
 import { ExtensionModule } from './extension/extension.module';
 import { EmployeeModule } from './employee/employee.module';
 import { PayrollListingModule } from './payroll_listing/payroll_listing.module';
+import { CustomerModule } from './customer/customer.module';
 import * as dotenv from 'dotenv';
 
 
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule],
+  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule],
   controllers: [AppController],
   providers: [AppService],
 })

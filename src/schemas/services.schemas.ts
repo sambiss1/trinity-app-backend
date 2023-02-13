@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
-export type ServicesDocument = HydratedDocument<Services>;
+export type ServiceDocument = HydratedDocument<Service>;
 
 @Schema()
-export class Services {
+export class Service {
     @Prop({ required: true })
     name: string;
 
@@ -13,4 +13,4 @@ export class Services {
     type: string;
 }
 
-export const ServicesSchema = SchemaFactory.createForClass(Services).plugin(softDeletePlugin);
+export const ServiceSchema = SchemaFactory.createForClass(Service).plugin(softDeletePlugin);

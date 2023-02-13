@@ -8,12 +8,13 @@ import { EmployeeModule } from './employee/employee.module';
 import { PayrollListingModule } from './payroll_listing/payroll_listing.module';
 import { CustomerModule } from './customer/customer.module';
 import { ServicesModule } from './services/services.module';
+import { TaskModule } from './task/task.module';
 import * as dotenv from 'dotenv';
 
 
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule],
+  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -11,24 +11,8 @@ export class PayrollListing {
     @Prop({ required: true })
     month: string;
 
-    @Prop({ required: true })
-    name: string;
-
     @Prop()
-    address: string;
-
-    @Prop()
-    email: string;
-
-    @Prop()
-    phone_number: string;
-
-    @Prop()
-    civil_status: string;
-
-    @Prop()
-    number_of_child: number;
-
+    tax: string;
 
     @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }])
     employee: Employee;

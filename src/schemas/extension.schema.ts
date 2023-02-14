@@ -8,7 +8,9 @@ import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type ExtensionDocument = HydratedDocument<Extension>;
 
-@Schema()
+@Schema({
+    timestamps: true,
+})
 export class Extension {
     @Prop({ required: true })
     name: string;

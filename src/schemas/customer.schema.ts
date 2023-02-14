@@ -6,7 +6,9 @@ import { Task } from './task.schema';
 
 export type CustomerDocument = HydratedDocument<Customer>;
 
-@Schema()
+@Schema({
+    timestamps: true,
+})
 export class Customer {
     @Prop({ required: true })
     name: string;

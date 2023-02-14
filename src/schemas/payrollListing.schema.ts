@@ -6,7 +6,9 @@ import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type PayrollListingDocument = HydratedDocument<PayrollListing>;
 
-@Schema()
+@Schema({
+    timestamps: true,
+})
 export class PayrollListing {
     @Prop({ required: true })
     year: string;

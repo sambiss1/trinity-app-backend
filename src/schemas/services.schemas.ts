@@ -4,7 +4,9 @@ import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type ServiceDocument = HydratedDocument<Service>;
 
-@Schema()
+@Schema({
+    timestamps: true,
+})
 export class Service {
     @Prop({ required: true })
     name: string;

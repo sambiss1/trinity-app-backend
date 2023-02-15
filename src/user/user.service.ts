@@ -9,8 +9,12 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: SoftDeleteModel<UserDocument>) { }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    return (await this.userModel.create(createUserDto)).save();
+  async create(name: string, email: string, password: string, rule: string, extension: string): Promise<User> {
+    return await this.userModel.create(
+      {
+        name, email, password, rule, extension
+      }
+    );
   }
 
   findAll() {

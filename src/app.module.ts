@@ -10,12 +10,14 @@ import { CustomerModule } from './customer/customer.module';
 import { ServicesModule } from './services/services.module';
 import { TaskModule } from './task/task.module';
 import { InvoiceModule } from './invoice/invoice.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
 
 
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule],
+  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule, UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

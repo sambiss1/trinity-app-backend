@@ -10,17 +10,16 @@ export class UserService {
   User: any;
   constructor(@InjectModel(User.name) private userModel: SoftDeleteModel<UserDocument>) { }
 
-  async create(name: string, password: string): Promise<User> {
+  async create(name: string, email: string, password: string, rule: string, extension: string): Promise<User> {
     return await this.userModel.create(
       {
-        name, password
+        name, email, password, rule, extension
       }
     );
   }
 
   findAll() {
-    return this.userModel.find()
-      // .populate("extension")
+    return this.userModel.find().populate("extension")
   }
 
   // async findOne(query: object): Promise<User> {

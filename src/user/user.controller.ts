@@ -12,10 +12,10 @@ export class UserController {
   @Post("/signup")
   async create(
     @Body('name') name: string,
-    // @Body('email') email: string,
+    @Body('email') email: string,
     @Body('password') password: string,
-    // @Body('rule') rule: string,
-    // @Body('extension') extension: string,
+    @Body('rule') rule: string,
+    @Body('extension') extension: string,
   ): Promise<User> {
 
     const saltOrRounds = 10;
@@ -23,6 +23,9 @@ export class UserController {
     const result = await this.userService.create(
       name,
       hashedPassword,
+      email,
+      rule,
+      extension
     );
     return result;
   }

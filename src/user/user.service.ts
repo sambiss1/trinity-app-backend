@@ -7,22 +7,28 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UserService {
+  User: any;
   constructor(@InjectModel(User.name) private userModel: SoftDeleteModel<UserDocument>) { }
 
-  async create(name: string, email: string, password: string, rule: string, extension: string): Promise<User> {
+  async create(name: string, password: string): Promise<User> {
     return await this.userModel.create(
       {
-        name, email, password, rule, extension
+        name, password
       }
     );
   }
 
   findAll() {
-    return this.userModel.find().populate("extension")
+    return this.userModel.find()
+      // .populate("extension")
   }
 
-  async findOne(query: object): Promise<User> {
-    return this.userModel.findOne(query);
+  // async findOne(query: object): Promise<User> {
+  //   return this.userModel.findOne(query);
+  // }
+
+  async findOne(id: string): Promise<User | undefined> {
+    return this.userModel.findOne({ id });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

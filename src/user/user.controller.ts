@@ -12,18 +12,16 @@ export class UserController {
   @Post("/signup")
   async create(
     @Body('name') name: string,
-    @Body('email') email: string,
+    // @Body('email') email: string,
     @Body('password') password: string,
-    @Body('rule') rule: string,
-    @Body('extension') extension: string,): Promise<User> {
-    
+    // @Body('rule') rule: string,
+    // @Body('extension') extension: string,
+  ): Promise<User> {
+
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
     const result = await this.userService.create(
       name,
-      email,
-      rule,
-      extension,
       hashedPassword,
     );
     return result;
@@ -34,10 +32,10 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.userService.findOne();
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    // return this.userService.findOne();
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

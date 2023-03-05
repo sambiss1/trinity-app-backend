@@ -45,5 +45,11 @@ $ npm run test:cov
 
 ## Variables d'environnement
 
-DB_CONNECTION
-PORT
+```bash
+# Database connection
+$ DB_CONNECTION
+
+# Port
+$ PORT
+
+```

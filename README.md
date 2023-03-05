@@ -2,17 +2,13 @@
   TRINITY APP | BACKEND
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
   <p align="center">
     
   </p>
 
-
-
 ## Description
 
+Backend du projet chef d'oeuvre TRINITY APP
 
 ## Installation
 
@@ -24,13 +20,14 @@ $ npm install
 
 ```bash
 # development
-$ npm run start
+$ nest start
 
 # watch mode
-$ npm run start:dev
+$ nest start --watch
 
-# production mode
-$ npm run start:prod
+# build 
+nest build
+
 ```
 
 ## Test
@@ -46,4 +43,7 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Variables d'environnement
 
+DB_CONNECTION
+PORT

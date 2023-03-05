@@ -5,7 +5,7 @@ import { UpdateServiceDto } from './dto/update-service.dto';
 
 @Controller('services')
 export class ServicesController {
-  constructor(private readonly servicesService: ServicesService) {}
+  constructor(private readonly servicesService: ServicesService) { }
 
   // Post
   @Post()
@@ -17,6 +17,12 @@ export class ServicesController {
   @Get()
   findAll() {
     return this.servicesService.findAll();
+  }
+
+  // Get by company
+  @Get(":company")
+  findByCompany(@Param('company') company: string) {
+    return this.servicesService.findByCompany(company)
   }
 
   // Get one

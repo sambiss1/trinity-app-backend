@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { HydratedDocument } from 'mongoose';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 import { Customer } from './customer.schema';
+import { Extension } from './extension.schema';
 
 export type InvoiceDocument = HydratedDocument<Invoice>;
 
@@ -34,8 +35,11 @@ export class Invoice {
     @Prop()
     date: string;
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Customer" }])
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
     customer: Customer
+
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Extension" })
+    extension: Extension
 }
 
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice).plugin(softDeletePlugin);

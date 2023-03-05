@@ -27,6 +27,12 @@ export class InvoiceService {
     return await this.invoiceModel.findOne({ id }).populate("customer");
   }
 
+  // Find extension invoice
+  async findExtensionInvoice(extension: string) {
+    return this.invoiceModel.find().where({ extension }).populate(["customer", "extension"]);
+
+  }
+
   // Update one
   async update(id: number, updateInvoiceDto: UpdateInvoiceDto) {
     return await this.invoiceModel.updateOne({ id }, { $set: { ...updateInvoiceDto } });
@@ -34,7 +40,7 @@ export class InvoiceService {
 
   // Remove one
   remove(id: number) {
-    const deleted = this.invoiceModel.softDelete({ _id: id });
+    const deleted = this.invoiceModel.softDelete({ id: id });
     return deleted;
   }
 

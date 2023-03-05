@@ -16,14 +16,22 @@ export class ServicesService {
     return createdService
   }
 
+
   // Find all
   async findAll() {
-    return await this.serviceModel.find();
+    return await this.serviceModel.find().populate("company");
   }
+  
+  // Find by company
+  async findByCompany(company: string) {
+    return await this.serviceModel.find().where({ company }).populate("company");
+  }
+  
+
 
   // Find one
   async findOne(id: number) {
-    return await this.serviceModel.findOne({ id })
+    return await this.serviceModel.findOne({ id }).populate("company")
   }
 
   // Update one

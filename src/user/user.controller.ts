@@ -12,10 +12,10 @@ export class UserController {
   @Post("/signup")
   async create(
     @Body('name') name: string,
-    @Body('email') email: string,
     @Body('password') password: string,
-    @Body('rule') rule: string,
-    @Body('extension') extension: string,
+    @Body('email') email: string,
+    // @Body('rule') rule: string,
+    @Body('company') company: string,
   ): Promise<User> {
 
     const saltOrRounds = 10;
@@ -24,8 +24,8 @@ export class UserController {
       name,
       hashedPassword,
       email,
-      rule,
-      extension
+      // rule,
+      company
     );
     return result;
   }

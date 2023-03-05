@@ -8,9 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
     constructor(private userService: UserService, private jwtService: JwtService) { }
 
-    async validateUser(name: string, password: string): Promise<any> {
-        const user = await this.userService.findOne(name);
-
+    async validateUser(username: string, password: string): Promise<any> {
+        const user = await this.userService.findOne({username});
         if (!user) return null;
         const passwordValid = await bcrypt.compare(password, user.password)
         if (!user) {
@@ -20,18 +19,13 @@ export class AuthService {
             return user;
         }
         return null;
-        // if (user && user.password === password) {
-        //     const { password, ...result } = user;
-        //     return result;
-        // }
-        // return null;
     }
 
 
     async login(user: any) {
         const payload = { user: user, sub: user._id };
         return {
-            user: payload.user,
+            // user: payload.user,
             access_token: this.jwtService.sign(payload),
         };
     }

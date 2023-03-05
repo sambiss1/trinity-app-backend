@@ -17,7 +17,7 @@ import * as dotenv from 'dotenv';
 
 
 @Module({
-  imports: [MongooseModule.forRoot("mongodb+srv://sambiss:s1Zzy851rLHlCnT7@cluster0.r6acpho.mongodb.net/?retryWrites=true&w=majority"), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule, UserModule, AuthModule],
+  imports: [MongooseModule.forRoot(process.env.DB_CONNECTION), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule, UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -27,6 +27,8 @@ export class CustomerService {
 
   }
 
+ 
+
   // Update one
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
     return await this.customerModel.updateOne({ id }, { $set: { ...updateCustomerDto } });

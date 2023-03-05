@@ -35,7 +35,7 @@ export class Invoice {
     @Prop()
     date: string;
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Customer" }])
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
     customer: Customer
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Extension" })

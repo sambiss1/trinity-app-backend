@@ -19,6 +19,12 @@ export class InvoiceController {
     return this.invoiceService.findAll();
   }
 
+  // Find extension invoice
+  @Get(":extension")
+  findExtensionInvoice(@Param('extension') extension: string) {
+    return this.invoiceService.findExtensionInvoice(extension); 
+  }
+
   // Get one
   @Get(':id')
   findOne(@Param('id') id: string) {

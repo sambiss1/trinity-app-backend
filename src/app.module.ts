@@ -12,13 +12,14 @@ import { TaskModule } from './task/task.module';
 import { InvoiceModule } from './invoice/invoice.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import * as dotenv from 'dotenv';
+require('dotenv').config();
+
 
 
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DB_CONNECTION), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule, UserModule, AuthModule],
+  imports: [MongooseModule.forRoot(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}?retryWrites=true&w=majority`), CompanyModule, ExtensionModule, EmployeeModule, PayrollListingModule, CustomerModule, ServicesModule, TaskModule, InvoiceModule, UserModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

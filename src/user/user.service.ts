@@ -23,11 +23,11 @@ export class UserService {
   }
 
   async findOne(query: object): Promise<User> {
-    return this.userModel.findOne(query);
+    return this.userModel.findOne({query});
   }
 
-  // async findOne(id: string): Promise<User | undefined> {
-  //   return this.userModel.findOne({ id });
+  // async findOne(username: string): Promise<User | undefined> {
+  //   return this.userModel.findOne({ username });
   // }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -24,7 +24,7 @@ export class Invoice {
     payed: boolean;
 
     @Prop()
-    amount_due: string;
+    amount_due: number;
 
     @Prop()
     amount_paid: string;

@@ -18,13 +18,12 @@ export class CustomerService {
 
   // Find all customer
   async findAll() {
-    return this.customerModel.find();
+    return this.customerModel.find().populate("tasks");
   }
 
   // Find one customer
   async findOne(id: number) {
-    return await this.customerModel.findOne({ id }).populate("company");
-
+    return await this.customerModel.findOne({ id }).populate("tasks");
   }
 
  

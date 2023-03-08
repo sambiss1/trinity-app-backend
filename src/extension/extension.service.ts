@@ -18,9 +18,15 @@ export class ExtensionService {
   }
 
   // Find all
-  async findAll() {
-    return await this.extensionModel.find().populate("company");
+  // async findAll() {
+  //   return await this.extensionModel.find().populate("company");
+  // }
+  // Find by company
+  async findAll(company: string) {
+    return await this.extensionModel.find().where({ company }).populate("company");
   }
+
+
 
   // Find one
   async findOne(id: number) {

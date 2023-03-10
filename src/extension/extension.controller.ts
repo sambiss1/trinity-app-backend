@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ExtensionService } from './extension.service';
 import { CreateExtensionDto } from './dto/create-extension.dto';
 import { UpdateExtensionDto } from './dto/update-extension.dto';
 
-@Controller('extension')
+@Controller("api/extensions")
 export class ExtensionController {
   constructor(private readonly extensionService: ExtensionService) { }
 
@@ -13,8 +13,8 @@ export class ExtensionController {
   }
 
   @Get()
-  findAll() {
-    return this.extensionService.findAll();
+  findAll(@Query("company") company: string) {
+    return this.extensionService.findAll(company);
   }
 
   @Get(':id')

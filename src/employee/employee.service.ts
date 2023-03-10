@@ -19,27 +19,25 @@ export class EmployeeService {
 
   // Find all 
   async findAll() {
-    return this.extensionModel.find();
+    return this.extensionModel.find().populate("extension");
   }
 
   // Find one
   async findOne(id: number) {
-    return (await this.extensionModel.findOne({ id })).populated("extension")
-    // return `This action returns a #${id} employee`;
+    return (await this.extensionModel.findOne({ id })).populate("extension")
+    
   }
 
 
   // Update one employee
   async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
     return this.extensionModel.updateOne({ id }, { $set: { ...updateEmployeeDto } });
-    // return `This action updates a #${id} employee`;
   }
 
   // Remove one employee
   async remove(id: number) {
     const deleted = this.extensionModel.softDelete({ _id: id });
     return deleted;
-    // return `This action removes a #${id} employee`;
   }
 
   // Remove many

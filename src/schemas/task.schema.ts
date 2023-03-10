@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Service } from "./services.schemas";
 import { Employee } from './employee.schema';
+import { Customer } from "./customer.schema";
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type TaskDocument = HydratedDocument<Task>;
@@ -27,13 +28,16 @@ export class Task {
     due_date: string;
 
     @Prop()
-    state: string;
+    status: number;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Service' })
     service: Service;
 
     @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }])
     taskers: Employee
+
+    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Customer" }])
+    customer: Customer
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task).plugin(softDeletePlugin);

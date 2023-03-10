@@ -25,9 +25,6 @@ export class Customer {
 
     @Prop()
     phone: string;
-
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }])
-    tasks: Task   
 }
 
 export const CustomerSchema = SchemaFactory.createForClass(Customer).plugin(softDeletePlugin);

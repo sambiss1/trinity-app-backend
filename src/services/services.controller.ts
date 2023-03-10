@@ -3,7 +3,7 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 
-@Controller('services')
+@Controller("api/services")
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) { }
 
@@ -26,8 +26,8 @@ export class ServicesController {
   }
 
   // Get one
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.servicesService.findOne(+id);
   }
 

@@ -3,9 +3,9 @@ import { InvoiceService } from './invoice.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 
-@Controller('invoice')
+@Controller("api/invoice")
 export class InvoiceController {
-  constructor(private readonly invoiceService: InvoiceService) {}
+  constructor(private readonly invoiceService: InvoiceService) { }
 
   // post one
   @Post()
@@ -22,7 +22,7 @@ export class InvoiceController {
   // Find extension invoice
   @Get(":extension")
   findExtensionInvoice(@Param('extension') extension: string) {
-    return this.invoiceService.findExtensionInvoice(extension); 
+    return this.invoiceService.findExtensionInvoice(extension);
   }
 
   // Get one

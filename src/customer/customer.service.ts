@@ -18,16 +18,16 @@ export class CustomerService {
 
   // Find all customer
   async findAll() {
-    return this.customerModel.find();
+    return this.customerModel.find()
   }
 
   // Find one customer
   async findOne(id: number) {
-    return await this.customerModel.findOne({ id }).populate("company");
-
+    return await this.customerModel.findOne({ id })
   }
 
- 
+  
+
 
   // Update one
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {

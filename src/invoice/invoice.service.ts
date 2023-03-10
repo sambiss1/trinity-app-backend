@@ -19,12 +19,12 @@ export class InvoiceService {
 
   // Find all
   async findAll() {
-    return this.invoiceModel.find().populate("customer");
+    return this.invoiceModel.find().populate("customer extension");
   }
 
   // Find one
   async findOne(id: number) {
-    return await this.invoiceModel.findOne({ id }).populate("customer");
+    return await this.invoiceModel.findOne({ id }).populate("customer extension");
   }
 
   // Find extension invoice

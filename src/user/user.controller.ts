@@ -14,17 +14,14 @@ export class UserController {
     @Body('name') name: string,
     @Body('password') password: string,
     @Body('email') email: string,
-    // @Body('rule') rule: string,
     @Body('company') company: string,
   ): Promise<User> {
-
     const saltOrRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltOrRounds);
     const result = await this.userService.create(
       name,
       hashedPassword,
       email,
-      // rule,
       company
     );
     return result;

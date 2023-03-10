@@ -20,9 +20,15 @@ export class TaskService {
     return await this.taskModel.find().populate([{ path: "service" }, { path: "taskers" }]);
   }
 
+  // Get in progress tasks
+  // find all tasks
+  async findByStatus(status: number) {
+    return await this.taskModel.find().populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
+  }
+
   // Find one
   async findOne(id: number) {
-    return await this.taskModel.findOne({ id }).populate([{ path: "service" }, { path: "taskers" }]);
+    return await this.taskModel.findOne({ id }).populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
   }
 
   // Update one
@@ -35,6 +41,8 @@ export class TaskService {
     const deleted = this.taskModel.softDelete({ _id: id });
     return deleted;
   }
+
+  
 
 
   // remove many 

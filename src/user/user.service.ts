@@ -22,13 +22,13 @@ export class UserService {
     return this.userModel.find().populate("company")
   }
 
-  async findOne(query: object): Promise<User> {
-    return this.userModel.findOne({query});
-  }
-
-  // async findOne(username: string): Promise<User | undefined> {
-  //   return this.userModel.findOne({ username });
+  // async findOne(query: object): Promise<User> {
+  //   return this.userModel.findOne({query});
   // }
+
+  async findOne(username: string): Promise<User | undefined> {
+    return this.userModel.findOne({ username });
+  }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return this.userModel.updateOne({ id }, { $set: { ...updateUserDto } });

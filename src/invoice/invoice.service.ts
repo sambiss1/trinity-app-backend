@@ -30,7 +30,6 @@ export class InvoiceService {
   // Find extension invoice
   async findExtensionInvoice(extension: string) {
     return this.invoiceModel.find().where({ extension }).populate(["customer", "extension"]);
-
   }
 
   // Update one

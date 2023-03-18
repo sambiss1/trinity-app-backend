@@ -22,10 +22,11 @@ export class Task {
     substasks: string[];
 
     @Prop()
-    start_date: string;
+    start_date: Date;
 
     @Prop()
-    due_date: string;
+    due_date: Date;
+
 
     @Prop()
     status: number;
@@ -36,7 +37,7 @@ export class Task {
     @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }])
     taskers: Employee
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Customer" }])
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
     customer: Customer
 }
 

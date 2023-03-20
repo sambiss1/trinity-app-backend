@@ -26,8 +26,11 @@ export class CustomerService {
     return await this.customerModel.findOne({ id })
   }
 
-  
 
+  // Retrieve delete data
+  async findDeleted() {
+    return await this.customerModel.find({ isDeleted: 1 })
+  }
 
   // Update one
   async update(id: number, updateCustomerDto: UpdateCustomerDto) {
@@ -36,10 +39,11 @@ export class CustomerService {
   }
 
   // Remove one
-  async remove(id: number) {
+  async remove(id: string) {
     const deleted = this.customerModel.softDelete({ _id: id });
     return deleted;
   }
+
 
   // Delete many
 

@@ -5,7 +5,7 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Controller("api/customers")
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+  constructor(private readonly customerService: CustomerService) { }
 
   // Post
   @Post()
@@ -26,6 +26,12 @@ export class CustomerController {
     return this.customerService.findOne(+id);
   }
 
+  // Get deleted records
+  @Get("/deleted")
+  findDeleted() {
+    return this.customerService.findDeleted();
+  }
+
   // Update one
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
@@ -35,7 +41,7 @@ export class CustomerController {
   // Delete one
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+    return this.customerService.remove(id);
   }
 
   // Delete many

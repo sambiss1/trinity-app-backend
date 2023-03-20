@@ -4,6 +4,7 @@ import { HydratedDocument } from 'mongoose';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 import { Customer } from './customer.schema';
 import { Extension } from './extension.schema';
+import { Task } from './task.schema';
 
 export type InvoiceDocument = HydratedDocument<Invoice>;
 
@@ -11,7 +12,7 @@ export type InvoiceDocument = HydratedDocument<Invoice>;
     timestamps: true,
 })
 export class Invoice {
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true })
     num: string;
 
     @Prop()
@@ -19,6 +20,16 @@ export class Invoice {
 
     @Prop()
     currency: string;
+
+    @Prop([Number])
+    quantity: number;
+
+    @Prop([Number])
+    unitPrice: number;
+    
+
+    @Prop([Number])
+    totalPrice: number;
 
     @Prop()
     payed: boolean;
@@ -33,13 +44,18 @@ export class Invoice {
     payment_term: string;
 
     @Prop()
-    date: string;
+    date: Date;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
     customer: Customer
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Extension" })
     extension: Extension
+
+    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }])
+    tasks: Task
 }
+
+
 
 export const InvoiceSchema = SchemaFactory.createForClass(Invoice).plugin(softDeletePlugin);

@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller("api/tasks")
 export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+  constructor(private readonly taskService: TaskService) { }
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
@@ -15,6 +15,11 @@ export class TaskController {
   @Get()
   findAll() {
     return this.taskService.findAll();
+  }
+
+  @Get(":customer")
+  findByCustomer(@Param("customer") customer: string) {
+    return this.taskService.findByCustomer(customer);
   }
 
   @Get(':id')

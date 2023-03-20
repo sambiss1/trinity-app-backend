@@ -17,7 +17,7 @@ export class TaskService {
 
   // find all tasks
   async findAll() {
-    return await this.taskModel.find().populate([{ path: "service" }, { path: "taskers" }]);
+    return await this.taskModel.find().populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
   }
 
   // Get in progress tasks
@@ -26,10 +26,16 @@ export class TaskService {
     return await this.taskModel.find().populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
   }
 
+  // Find customer tasks 
+  async findByCustomer(customer: string) {
+    return await this.taskModel.find().where({ customer }).populate([{ path: "service" }, { path: "taskers" }])
+  }
+
   // Find one
   async findOne(id: number) {
     return await this.taskModel.findOne({ id }).populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
   }
+
 
   // Update one
   async update(id: number, updateTaskDto: UpdateTaskDto) {
@@ -42,7 +48,7 @@ export class TaskService {
     return deleted;
   }
 
-  
+
 
 
   // remove many 

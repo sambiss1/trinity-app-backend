@@ -12,7 +12,7 @@ export type InvoiceDocument = HydratedDocument<Invoice>;
     timestamps: true,
 })
 export class Invoice {
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true })
     num: string;
 
     @Prop()
@@ -26,6 +26,7 @@ export class Invoice {
 
     @Prop([Number])
     unitPrice: number;
+    
 
     @Prop([Number])
     totalPrice: number;

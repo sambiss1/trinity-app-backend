@@ -9,39 +9,47 @@ import { SoftDeleteModel } from "soft-delete-plugin-mongoose";
 
 @Injectable()
 export class EmployeeService {
-  constructor(@InjectModel(Employee.name) private extensionModel: SoftDeleteModel<EmployeeDocument>) { }
+  constructor(@InjectModel(Employee.name) private employeeModel: SoftDeleteModel<EmployeeDocument>) { }
 
   // Creat employee
   async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
-    const createdEmplyee = await new this.extensionModel(createEmployeeDto).save();
+    const createdEmplyee = await new this.employeeModel(createEmployeeDto).save();
     return createdEmplyee
   }
 
   // Find all 
   async findAll() {
-    return this.extensionModel.find().populate("extension");
+    return this.employeeModel.find().populate("extension");
   }
 
   // Find one
-  async findOne(id: number) {
-    return (await this.extensionModel.findOne({ id })).populate("extension")
-    
+  async findOne(id: string): Promise<Employee> {
+    return await this.employeeModel.findById(id).populate("extension")
   }
 
 
   // Update one employee
-  async update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return this.extensionModel.updateOne({ id }, { $set: { ...updateEmployeeDto } });
+  // async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
+  //   return this.employeeModel.findByIdAndUpdate({ id }, { $set: { ...updateEmployeeDto } });
+  // }
+
+  async update(id: string, Employee: Employee): Promise<Employee> {
+    // return this.employeeModel.findByIdAndUpdate({ id }, { $set: { ...Employee } });
+    return await this.employeeModel.findByIdAndUpdate(id, Employee, { new: true })
   }
 
   // Remove one employee
-  async remove(id: number) {
-    const deleted = this.extensionModel.softDelete({ _id: id });
+  async remove(id: string) {
+    const deleted = this.employeeModel.softDelete({ _id: id });
     return deleted;
+  }
+
+  async findDeleted() {
+    return await this.employeeModel.find({ isDeleted: true })
   }
 
   // Remove many
   async deleteAll() {
-    return this.extensionModel.deleteMany();
+    return this.employeeModel.deleteMany();
   }
 }

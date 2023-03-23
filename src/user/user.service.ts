@@ -1,41 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User, UserDocument } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
-import { User, UserDocument } from 'src/schemas/user.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UserService {
-  User: any;
-  constructor(@InjectModel(User.name) private userModel: SoftDeleteModel<UserDocument>) { }
+  constructor(@InjectModel("user") private readonly userModel: Model<UserDocument>) { }
+  async createUser(name: string, password: string): Promise<User> {
+    return this.userModel.create({
+      name,
+      password,
+    });
+  }
+  async getUser(query: object): Promise<User> {
+    return this.userModel.findOne({ query });
+  }
+  async findAll() {
+    return await this.userModel.find();
 
-  async create(name: string, password: string, email: string, company: string): Promise<User> {
-    return await this.userModel.create(
-      {
-        name, password, email, company
-      }
-    );
   }
 
-  findAll() {
-    return this.userModel.find().populate("company")
-  }
-
-  // async findOne(query: object): Promise<User> {
-  //   return this.userModel.findOne({query});
-  // }
-
-  async findOne(username: string): Promise<User | undefined> {
-    return this.userModel.findOne({ username });
+  async findOne(username: string): Promise<any> {
+    return this.userModel.find({username});
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userModel.updateOne({ id }, { $set: { ...updateUserDto } });
+    return `This action updates a #${id} user`;
   }
 
   remove(id: number) {
-    const deleted = this.userModel.softDelete({ id: id });
-    return deleted;
+    return `This action removes a #${id} user`;
   }
 }

@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose'
 import { Company } from './company.schema';
+import { Employee } from './employee.schema';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 

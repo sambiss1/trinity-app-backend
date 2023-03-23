@@ -26,6 +26,9 @@ export class UserService {
   async findOne(username: string): Promise<any> {
     return this.userModel.find({username});
   }
+  // async findOne(query: object): Promise<any> {
+  //   return this.userModel.find({ query });
+  // }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

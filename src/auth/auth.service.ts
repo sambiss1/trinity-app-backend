@@ -8,7 +8,7 @@ import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
-  constructor(private  userService: UserService, private jwtService: JwtService) { }
+  constructor(private userService: UserService, private jwtService: JwtService) { }
   // async validateUser(name: string, password: string): Promise<User> {
   //   const user = await this.userService.getUser({ name });
   //   if (!user) return null;
@@ -35,15 +35,28 @@ export class AuthService {
   // }
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.userService.findOne(username);
+    if (!user) return null;
+    // const passwordValid = await bcrypt.compare(pass, user.password)
     if (user && user.password === pass) {
+      console.log({ pass }, user.name, user.password)
       const { password, ...result } = user;
       return result;
     }
     return null;
   }
+  // async validateUser(username: string, pass: string): Promise<any> {
+  //   const user = await this.userService.findOne(username);
+  //   const passwordValid = await bcrypt.compare(pass, user.password)
+  //   if (user && user.password === pass) {
+  //     const { password, ...result } = user;
+  //     return result;
+  //   }
+  //   return null;
+  // }
   async login(user: any) {
     const payload = { username: user.name, sub: user._id };
     return {
+      user: payload,
       access_token: this.jwtService.sign(payload),
     };
   }

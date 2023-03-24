@@ -9,20 +9,18 @@ import * as bcrypt from 'bcrypt';
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  @Post("/signup")
-  async create(
-    @Body('name') name: string,
-    @Body('password') password: string,
-    @Body('email') email: string,
-    @Body('company') company: string,
+  @Post('/signup')
+  async createUser(
+    // @Body('username') username: string,
+    // @Body('password') password: string,
+    // @Body() createUserDto: CreateUserDto,
+    @Body() user: User
   ): Promise<User> {
     const saltOrRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltOrRounds);
-    const result = await this.userService.create(
-      name,
+    const hashedPassword = await bcrypt.hash(user.password, saltOrRounds);
+    const result = await this.userService.createUser(
+      user.name,
       hashedPassword,
-      email,
-      company
     );
     return result;
   }
@@ -32,18 +30,18 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    // return this.userService.findOne();
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.userService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  //   return this.userService.update(+id, updateUserDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.userService.remove(+id);
+  // }
 }

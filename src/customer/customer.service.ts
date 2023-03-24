@@ -22,8 +22,8 @@ export class CustomerService {
   }
 
   // Find one customer
-  async findOne(id: number) {
-    return await this.customerModel.findOne({ id })
+  async findOne(id: string) {
+    return await this.customerModel.findById(id)
   }
 
 

@@ -38,8 +38,9 @@ export class TaskService {
 
 
   // Update one
-  async update(id: number, updateTaskDto: UpdateTaskDto) {
-    return this.taskModel.updateOne({ id }, { $set: { ...updateTaskDto } });
+  async update(id: string, Task: Task) {
+    // return this.taskModel.findByIdAndUpdate({ id }, { $set: { ...updateTaskDto } });
+    return await this.taskModel.findByIdAndUpdate(id, Task, { new: true })
   }
 
   // Delete one

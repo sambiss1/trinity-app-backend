@@ -23,7 +23,7 @@ export class CustomerController {
   // Get one
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.customerService.findOne(+id);
+    return this.customerService.findOne(id);
   }
 
   // Get deleted records

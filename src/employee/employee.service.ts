@@ -19,12 +19,12 @@ export class EmployeeService {
 
   // Find all 
   async findAll() {
-    return this.employeeModel.find().populate("extension");
+    return this.employeeModel.find().populate([{ path: "extension" }, { path: "position" }]);
   }
 
   // Find one
   async findOne(id: string): Promise<Employee> {
-    return await this.employeeModel.findById(id).populate("extension")
+    return await this.employeeModel.findById(id).populate([{ path: "extension" }, { path: "position" }])
   }
 
 

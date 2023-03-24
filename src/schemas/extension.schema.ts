@@ -19,8 +19,8 @@ export class Extension {
     @Prop()
     location: string;
 
-    @Prop()
-    director: string;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' })
+    director: Employee;
 
     @Prop()
     slug: string;

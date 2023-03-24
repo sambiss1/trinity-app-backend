@@ -3,6 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Extension } from './extension.schema';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
+import { Position } from './position.schema';
 
 export type EmployeeDocument = HydratedDocument<Employee>;
 
@@ -31,8 +32,8 @@ export class Employee {
     @Prop()
     number_of_child: number;
 
-    @Prop()
-    position: string;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Position' })
+    position: Position;
 
     @Prop()
     salary: number;

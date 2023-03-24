@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateExtensionDto } from './dto/create-extension.dto';
 import { UpdateExtensionDto } from './dto/update-extension.dto';
 import { Extension, ExtensionDocument } from 'src/schemas/extension.schema';
 import { SoftDeleteModel } from "soft-delete-plugin-mongoose";
+import { Employee } from 'src/schemas/employee.schema';
+
+
 
 @Injectable()
 export class ExtensionService {
@@ -18,29 +21,28 @@ export class ExtensionService {
   }
 
   // Find all
-  // async findAll() {
-  //   return await this.extensionModel.find().populate("company");
-  // }
+  async findAll() {
+    return await this.extensionModel.find().populate([{path: "company"}, {path: "director"}]);
+  }
   // Find by company
-  async findAll(company: string) {
-    return await this.extensionModel.find().where({ company }).populate("company");
+  async findAllByCompany(company: string) {
+    return await this.extensionModel.find().where({ company }).populate([{ path: "company" }, { path: "director" }]);
   }
 
-
-
   // Find one
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.extensionModel.findOne({ id }).populate("company");
 
   }
 
   // Update one
-  async update(id: number, updateExtensionDto: UpdateExtensionDto) {
-    return this.extensionModel.updateOne({ id }, { $set: { ...updateExtensionDto } });
+  async update(id: string, Extension: Extension): Promise<Extension> {
+    // return this.extensionModel.updateOne({ id }, { $set: { ...updateExtensionDto } });
+    return await this.extensionModel.findByIdAndUpdate(id, Extension, { new: true }) 
   }
 
   // Remove one
-  async remove(id: number) {
+  async remove(id: string) {
     const deleted = this.extensionModel.softDelete({ _id: id });
     return deleted;
 
@@ -53,3 +55,7 @@ export class ExtensionService {
     return await this.extensionModel.deleteMany();
   }
 }
+function next() {
+  throw new Error('Function not implemented.');
+}
+

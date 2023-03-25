@@ -4,16 +4,33 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/schemas/user.schema';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UserService } from 'src/user/user.service';
+import { LoginDTO } from './dto/LoginDto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+
+  constructor(private readonly authService: AuthService, private userService: UserService,) { }
 
   @UseGuards(AuthGuard('local'))
   @Post('/login')
-  async login(@Body() user: User, @Request() req) {
+  async login(@Body() UserDTO: LoginDTO, @Request() req) {
     return this.authService.login(req.user);
   }
+  // async login(@Body() UserDTO: LoginDTO) {
+  //   const user = await this.userService.findByLogin(UserDTO);
+  //   const payload = {
+  //     user: user
+  //   };
+  //   const token = await this.authService.login(payload);
+  //   return { user, token };
+  // }
+
+  // async login(@Body() user: User, @Request() req) {
+  //   return this.authService.login(req.user);
+  // }
+
 
 
   // @Get()

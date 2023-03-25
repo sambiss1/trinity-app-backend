@@ -27,6 +27,10 @@ export class EmployeeService {
     return await this.employeeModel.findById(id).populate([{ path: "extension" }, { path: "position" }])
   }
 
+  async sortByName(name: string) {
+    return await this.employeeModel.find().select("name").sort({ name: "asc" }).populate([{ path: "extension" }, { path: "position" }])
+  }
+
 
   // Update one employee
   // async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {

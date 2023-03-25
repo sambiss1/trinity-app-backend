@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -23,10 +23,15 @@ export class EmployeeController {
     return this.employeeService.findDeleted();
   }
 
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.employeeService.findOne(id);
+  }
+
+
+  @Get("/name")
+  sortByName(@Query("name") name: string) {
+    return this.employeeService.sortByName(name);
   }
 
   @Patch(':id')

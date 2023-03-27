@@ -13,11 +13,25 @@ export class AuthController {
 
   constructor(private readonly authService: AuthService, private userService: UserService,) { }
 
-  @UseGuards(AuthGuard('local'))
+  // @UseGuards(AuthGuard('jwt'))
   @Post('/login')
-  async login(@Body() UserDTO: LoginDTO, @Request() req) {
-    return this.authService.login(req.user);
+  async login(@Body() UserDTO: LoginDTO) {
+    const user = await this.userService.findByLogin(UserDTO);
+    const payload = {
+      name: user.name,
+    };
+    const token = await this.authService.signPayload(payload);
+    return { user, token };
   }
+
+
+
+
+
+  // @Post('/login')
+  // async login(@Body() UserDTO: LoginDTO, @Request() req) {
+  //   return this.authService.login(req.user);
+  // }
   // async login(@Body() UserDTO: LoginDTO) {
   //   const user = await this.userService.findByLogin(UserDTO);
   //   const payload = {

@@ -8,7 +8,7 @@ import { UserSchema } from 'src/schemas/user.schema';
 import { LocalStrategy } from './local.auth';
 import { UserService } from 'src/user/user.service';
 import { UserModule } from 'src/user/user.module';
-
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [UserModule, PassportModule, JwtModule.register({
@@ -16,6 +16,6 @@ import { UserModule } from 'src/user/user.module';
     signOptions: { expiresIn: '60s' },
   }), MongooseModule.forFeature([{ name: "user", schema: UserSchema }])],
   controllers: [AuthController],
-  providers: [AuthService, UserService, LocalStrategy]
+  providers: [AuthService, UserService, JwtStrategy]
 })
 export class AuthModule { }

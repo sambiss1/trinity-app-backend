@@ -5,6 +5,8 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/schemas/user.schema';
+import { Payload } from 'src/types/payload';
+import { sign } from 'jsonwebtoken';
 
 
 @Injectable()
@@ -22,10 +24,10 @@ export class AuthService {
   //   }
   //   return null;
   // // }
-  async validateUser(user: User): Promise<User> {
-    console.log( user.name, user.password );
-    const authUser = await this.userService.findOne(user.name);
-    return authUser
+  // async validateUser(user: User): Promise<User> {
+  //   console.log(user.name, user.password);
+  //   const authUser = await this.userService.findOne(user.name);
+  //   return authUser
     // const authUser = await this.userService.findOne(name);
     // if (!authUser) return null;
     // const passwordValid = await bcrypt.compare(password, authUser.password)
@@ -36,7 +38,7 @@ export class AuthService {
     //   return authUser;
     // }
     // return null;
-  }
+  // }
   // async validateUser(username: string, pass: string): Promise<any> {
   //   const user = await this.userService.findOne(username);
   //   if (!user) return null;
@@ -65,6 +67,15 @@ export class AuthService {
     };
   }
 
+
+  async signPayload(payload: Payload) {
+    // return this.jwtService.sign(payload,'process.env.SECRET_KEY', { expiresIn: '7d' });
+    return sign(payload, "process.env.SECRET_KEY", { expiresIn: '7d' });
+  }
+
+  async validateUser(payload: Payload) {
+    return await this.userService.findByPayload(payload);
+  }
 
 
   findAll() {

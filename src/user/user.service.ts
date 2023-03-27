@@ -11,6 +11,7 @@ import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Model } from 'mongoose';
 import { LoginDTO } from 'src/auth/dto/LoginDto';
 import * as bcrypt from 'bcrypt';
+import { Payload } from 'src/types/payload';
 
 @Injectable()
 export class UserService {
@@ -48,18 +49,23 @@ export class UserService {
   // }
 
 
-  // async findByLogin(UserDTO: LoginDTO) {
-  //   const { name, password } = UserDTO;
-  //   const user = await this.userModel.findOne({ name });
-  //   if (!user) {
-  //     throw new HttpException('user doesnt exists', HttpStatus.BAD_REQUEST);
-  //   }
-  //   if (await bcrypt.compare(password, user.password)) {
-  //     return this.sanitizeUser(user)
-  //   } else {
-  //     throw new HttpException('invalid credential', HttpStatus.BAD_REQUEST);
-  //   }
-  // }
+  async findByLogin(UserDTO: LoginDTO) {
+    const { name, password } = UserDTO;
+    const user = await this.userModel.findOne({ name });
+    if (!user) {
+      throw new HttpException('user doesnt exists', HttpStatus.BAD_REQUEST);
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      return user;
+    } else {
+      throw new HttpException('invalid credential', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async findByPayload(payload: Payload) {
+    const { name } = payload;
+    return await this.userModel.findOne({ name });
+  }
   // sanitizeUser(user: User) {
   //   const sanitized = user.toObject();
   //   delete sanitized['password'];

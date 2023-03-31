@@ -3,11 +3,11 @@ import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
-@Controller('company')
+@Controller('api/company')
 export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(private readonly companyService: CompanyService) { }
 
-  @Post()
+  @Post("/add")
   create(@Body() createCompanyDto: CreateCompanyDto) {
     return this.companyService.create(createCompanyDto);
   }
@@ -29,6 +29,11 @@ export class CompanyController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.companyService.remove(+id);
+    return this.companyService.remove(id);
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.companyService.deleteAll()
   }
 }

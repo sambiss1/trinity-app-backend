@@ -15,7 +15,7 @@ import { Payload } from 'src/types/payload';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel("user") private readonly userModel: Model<UserDocument>) { }
+  constructor(@InjectModel("user") private readonly userModel: SoftDeleteModel<UserDocument>) { }
   async createUser(name: string, password: string): Promise<User> {
     return this.userModel.create({
       name,
@@ -72,11 +72,20 @@ export class UserService {
   //   return sanitized;
   // }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+
+  // Update one
+  async update(id: string, User: User) {
+    return await this.userModel.findByIdAndUpdate(id, User, { new: true })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  // Delete one
+  async remove(id: string) {
+    const deleted = this.userModel.softDelete({ _id: id });
+    return deleted;
   }
+
+  async deleteAll() {
+    return await this.userModel.deleteMany();
+  }
+
 }

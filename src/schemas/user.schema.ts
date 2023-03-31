@@ -18,16 +18,15 @@ export class User {
 
     @Prop({ required: true })
     password: string;
-  
 
     @Prop()
     email: string;
 
-    // @Prop()
-    // rule: string;
+    @Prop()
+    rule: string;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
-    // company: Company
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
+    company: Company
 }
 
-export const UserSchema = SchemaFactory.createForClass(User)
+export const UserSchema = SchemaFactory.createForClass(User).plugin(softDeletePlugin)

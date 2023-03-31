@@ -1,6 +1,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 export type CompanyDocument = HydratedDocument<Company>;
 
@@ -26,11 +27,11 @@ export class Company {
     @Prop()
     address: string;
 
-    @Prop()
+    @Prop({ required: true })
     email: string;
 
     @Prop([String])
     phone_number: string[];
 }
 
-export const CompanySchema = SchemaFactory.createForClass(Company);
+export const CompanySchema = SchemaFactory.createForClass(Company).plugin(softDeletePlugin);

@@ -31,13 +31,14 @@ export class Task {
     @Prop()
     status: number;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Service' })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Service' })
+    @Prop({ type: String, ref: 'Service' })
     service: Service;
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }])
+    @Prop([{ type: String, ref: "Employee" }])
     taskers: Employee
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
+    @Prop({ type: String, ref: "Customer" })
     customer: Customer
 }
 

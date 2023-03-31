@@ -19,6 +19,11 @@ export class CustomerController {
     return this.customerService.findAll();
   }
 
+  // Get 
+  @Get("/extension/:extension")
+  findByExtension(@Param("extension") extension: string) {
+    return this.customerService.findByExtension(extension);
+  }
 
   // Get one
   @Get(':id')

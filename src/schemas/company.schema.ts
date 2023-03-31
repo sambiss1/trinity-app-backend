@@ -24,6 +24,7 @@ export class Company {
     @Prop()
     tax_number: string;
 
+    
     @Prop()
     address: string;
 

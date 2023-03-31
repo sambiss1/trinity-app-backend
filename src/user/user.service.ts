@@ -41,13 +41,13 @@ export class UserService {
 
   }
 
+  async findByCompany(company: string) {
+    return await this.userModel.find().where({ company: company });
+  }
+
   async findOne(name: string): Promise<any> {
     return this.userModel.find({ name });
   }
-  // async findOne(query: object): Promise<any> {
-  //   return this.userModel.find({ query });
-  // }
-
 
   async findByLogin(UserDTO: LoginDTO) {
     const { name, password } = UserDTO;
@@ -66,12 +66,6 @@ export class UserService {
     const { name } = payload;
     return await this.userModel.findOne({ name });
   }
-  // sanitizeUser(user: User) {
-  //   const sanitized = user.toObject();
-  //   delete sanitized['password'];
-  //   return sanitized;
-  // }
-
 
   // Update one
   async update(id: string, User: User) {

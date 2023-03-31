@@ -5,6 +5,8 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee, EmployeeDocument } from 'src/schemas/employee.schema';
 import { SoftDeleteModel } from "soft-delete-plugin-mongoose";
+import { ObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 
 @Injectable()
@@ -27,14 +29,29 @@ export class EmployeeService {
     return await this.employeeModel.findById(id).populate([{ path: "extension" }, { path: "position" }])
   }
 
+  // Find by extension
+  async findByExtension(extension: string) {
+    return await this.employeeModel.find().where({ extension }).populate([{ path: "extension" }, { path: "position" }])
+  }
 
-  // Update one employee
-  // async update(id: string, updateEmployeeDto: UpdateEmployeeDto) {
-  //   return this.employeeModel.findByIdAndUpdate({ id }, { $set: { ...updateEmployeeDto } });
-  // }
+  // Find director by extension
+  async findDirectorByExtension(extension: string, position: string) {
+    return await this.employeeModel.findOne().where({ position, extension }).populate([{ path: "extension" }, { path: "position" }])
+  }
+
+  // Find by Position
+  async findByPosition(id: string) {
+    // return await this.employeeModel.find({ position: { _id: id } })
+    // return await this.employeeModel.find().where({ position }).populate([{ path: "extension" }])
+    return await this.employeeModel.find().where({ position: id }).populate([{ path: "extension" }])
+  }
+
+  // Filtered by
+  async sortByName() {
+    return await this.employeeModel.find().sort({ name: 1 }).populate([{ path: "extension" }, { path: "position" }])
+  }
 
   async update(id: string, Employee: Employee): Promise<Employee> {
-    // return this.employeeModel.findByIdAndUpdate({ id }, { $set: { ...Employee } });
     return await this.employeeModel.findByIdAndUpdate(id, Employee, { new: true })
   }
 

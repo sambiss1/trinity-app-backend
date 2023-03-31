@@ -4,10 +4,12 @@ import { Model } from 'mongoose';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { Company, CompanyDocument } from 'src/schemas/company.schema';
+import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
+
 
 @Injectable()
 export class CompanyService {
-  constructor(@InjectModel(Company.name) private companyModel: Model<CompanyDocument>) { }
+  constructor(@InjectModel(Company.name) private companyModel: SoftDeleteModel<CompanyDocument>) { }
 
   //  add or create new company
   async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
@@ -30,8 +32,13 @@ export class CompanyService {
     return this.companyModel.updateOne({ id }, { $set: { ...updateCompanyDto } });
   }
 
-  // remove one company
-  async remove(id: number) {
-    return this.companyModel.deleteOne({ id });
+  // Delete one
+  async remove(id: string) {
+    const deleted = this.companyModel.softDelete({ _id: id });
+    return deleted;
+  }
+
+  async deleteAll() {
+    return this.companyModel.deleteMany()
   }
 }

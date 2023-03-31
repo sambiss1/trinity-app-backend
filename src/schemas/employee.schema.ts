@@ -11,7 +11,7 @@ export type EmployeeDocument = HydratedDocument<Employee>;
     timestamps: true,
 })
 export class Employee {
-    @Prop({ required: true })
+    @Prop({ required: true, unique: true })
     n_matricule: string;
 
     @Prop({ required: true })
@@ -20,7 +20,7 @@ export class Employee {
     @Prop()
     address: string;
 
-    @Prop()
+    @Prop({ unique: true })
     email: string;
 
     @Prop()
@@ -32,7 +32,8 @@ export class Employee {
     @Prop()
     number_of_child: number;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Position' })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Position' })
+    @Prop({ type: String, ref: 'Position' })
     position: Position;
 
     @Prop()
@@ -45,9 +46,10 @@ export class Employee {
     family_allowance: number;
 
     @Prop()
-    currency: string; 
+    currency: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Extension' })
+    @Prop({ type: String, ref: 'Extension' })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Extension' })
     extension: Extension;
 }
 

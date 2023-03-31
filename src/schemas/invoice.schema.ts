@@ -46,13 +46,16 @@ export class Invoice {
     @Prop()
     date: Date;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Customer" })
+    @Prop({ type: String, ref: "Customer" })
     customer: Customer
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Extension" })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Extension" })
+    @Prop({ type: String, ref: "Extension" })
     extension: Extension
 
-    @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }])
+    @Prop([{ type: String, ref: "Task" }])
+    // @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }])
     tasks: Task
 }
 

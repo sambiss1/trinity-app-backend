@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from 'src/schemas/task.schema';
+import { AuthGuard } from '@nestjs/passport';
+
 
 @Controller("api/tasks")
 export class TaskController {
@@ -13,6 +15,7 @@ export class TaskController {
     return this.taskService.create(createTaskDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.taskService.findAll();

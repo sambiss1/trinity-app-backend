@@ -1,4 +1,3 @@
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose'
@@ -19,14 +18,13 @@ export class Extension {
     @Prop()
     location: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' })
-    director: Employee;
-
     @Prop()
     slug: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Company' })
+    @Prop({ type: String, ref: 'Company' })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Company' })
     company: Company;
 }
+
 
 export const ExtensionSchema = SchemaFactory.createForClass(Extension).plugin(softDeletePlugin);

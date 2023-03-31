@@ -22,6 +22,11 @@ export class PositionService {
     return this.positionModel.find()
   }
 
+  // Find all by company
+  async findByCompany(company: string) {
+    return this.positionModel.find().where({ company })
+  }
+
   // Find one
   async findOne(id: string): Promise<Position> {
     return await this.positionModel.findById(id)

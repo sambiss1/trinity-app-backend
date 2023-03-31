@@ -12,8 +12,9 @@ export type PositionDocument = HydratedDocument<Position>;
 export class Position {
     @Prop({ required: true })
     name: string;
-
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
+    
+    @Prop({ type: String, ref: "Company" })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
     company: Company
 }
 

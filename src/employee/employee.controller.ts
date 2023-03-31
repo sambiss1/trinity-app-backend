@@ -3,7 +3,7 @@ import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee } from 'src/schemas/employee.schema';
-
+import { ObjectId } from 'mongoose';
 @Controller("api/employees")
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) { }
@@ -28,10 +28,25 @@ export class EmployeeController {
     return this.employeeService.findOne(id);
   }
 
-
   @Get("/name")
-  sortByName(@Query("name") name: string) {
-    return this.employeeService.sortByName(name);
+  sortByName() {
+    return this.employeeService.sortByName();
+  }
+
+  @Get("/extension")
+  findByExtension(@Param("extension") extension: string) {
+    return this.employeeService.findByExtension(extension);
+  }
+
+  @Get("/position")
+  findByPosition(@Query("position") id: string) {
+    return this.employeeService.findByPosition(id);
+  }
+
+  // @Get("/director/:extension/:position")
+  @Get("/director")
+  findDirectorByExtension(@Query("extension",) extension: string, @Param("position",) position: string,) {
+    return this.employeeService.findDirectorByExtension(extension, position);
   }
 
   @Patch(':id')
@@ -42,5 +57,10 @@ export class EmployeeController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.employeeService.remove(id);
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.employeeService.deleteAll();
   }
 }

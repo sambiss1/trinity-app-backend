@@ -23,9 +23,8 @@ export class CustomerService {
 
   // Find one customer
   async findOne(id: string) {
-    return await this.customerModel.findById(id)
+    return await this.customerModel.findById(id).populate("extension")
   }
-
 
   // Retrieve delete data
   async findDeleted() {
@@ -44,8 +43,6 @@ export class CustomerService {
     return deleted;
   }
 
-
-  // Delete many
 
   // remove many 
   async deleteAll() {

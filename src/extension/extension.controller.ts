@@ -43,7 +43,4 @@ export class ExtensionController {
     return this.extensionService.deleteAll();
   }
 
-  // remove(@Param('id') id: string) {
-  //   return this.extensionService.remove(+id);
-  // }
 }

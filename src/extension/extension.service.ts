@@ -22,11 +22,11 @@ export class ExtensionService {
 
   // Find all
   async findAll() {
-    return await this.extensionModel.find().populate([{path: "company"}, {path: "director"}]);
+    return await this.extensionModel.find().populate([{ path: "company" }]);
   }
   // Find by company
   async findAllByCompany(company: string) {
-    return await this.extensionModel.find().where({ company }).populate([{ path: "company" }, { path: "director" }]);
+    return await this.extensionModel.find().where({ company }).populate([{ path: "company" }]);
   }
 
   // Find one
@@ -38,14 +38,13 @@ export class ExtensionService {
   // Update one
   async update(id: string, Extension: Extension): Promise<Extension> {
     // return this.extensionModel.updateOne({ id }, { $set: { ...updateExtensionDto } });
-    return await this.extensionModel.findByIdAndUpdate(id, Extension, { new: true }) 
+    return await this.extensionModel.findByIdAndUpdate(id, Extension, { new: true })
   }
 
   // Remove one
   async remove(id: string) {
     const deleted = this.extensionModel.softDelete({ _id: id });
     return deleted;
-
 
     // return await this.extensionModel.deleteOne({ id });
   }

@@ -16,7 +16,8 @@ export class Service {
     @Prop({ required: true })
     type: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
+    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Company" })
+    @Prop({ type: String, ref: "Company" })
     company: Company
 }
 

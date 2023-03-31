@@ -33,17 +33,17 @@ export class EmployeeController {
     return this.employeeService.sortByName();
   }
 
-  @Get("/extension")
+  @Get("/extension/:extension")
   findByExtension(@Param("extension") extension: string) {
     return this.employeeService.findByExtension(extension);
   }
 
-  @Get("/position")
-  findByPosition(@Query("position") id: string) {
+  @Get("/position/:position")
+  findByPosition(@Param("position") id: string) {
     return this.employeeService.findByPosition(id);
   }
 
-  // @Get("/director/:extension/:position")
+
   @Get("/director")
   findDirectorByExtension(@Query("extension",) extension: string, @Param("position",) position: string,) {
     return this.employeeService.findDirectorByExtension(extension, position);

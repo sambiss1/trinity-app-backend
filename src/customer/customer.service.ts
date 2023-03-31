@@ -21,6 +21,11 @@ export class CustomerService {
     return this.customerModel.find()
   }
 
+  // Find all customers by extension
+  async findByExtension(extension: string) {
+    return this.customerModel.find().where({ extension }).populate("extension")
+  }
+
   // Find one customer
   async findOne(id: string) {
     return await this.customerModel.findById(id).populate("extension")

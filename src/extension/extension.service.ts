@@ -26,7 +26,7 @@ export class ExtensionService {
   }
   // Find by company
   async findAllByCompany(company: string) {
-    return await this.extensionModel.find().where({ company }).populate([{ path: "company" }]);
+    return await this.extensionModel.find().where({ company: company }).populate([{ path: "company" }]);
   }
 
   // Find one

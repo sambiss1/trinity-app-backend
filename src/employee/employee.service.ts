@@ -43,7 +43,7 @@ export class EmployeeService {
   async findByPosition(id: string) {
     // return await this.employeeModel.find({ position: { _id: id } })
     // return await this.employeeModel.find().where({ position }).populate([{ path: "extension" }])
-    return await this.employeeModel.find().where({ position: { _id: id } }).populate([{ path: "extension" }])
+    return await this.employeeModel.find().where({ position: id }).populate([{ path: "extension" }])
   }
 
   // Filtered by

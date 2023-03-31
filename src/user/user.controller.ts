@@ -30,6 +30,12 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  // Get by company
+  @Get(":company")
+  findByCompany(@Param("company") company: string) {
+    return this.userService.findByCompany(company);
+  }
+
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   return this.userService.findOne(+id);

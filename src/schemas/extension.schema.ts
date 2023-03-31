@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as mongoose from 'mongoose'
 import { Company } from './company.schema';
+import { Employee } from './employee.schema';
 import { softDeletePlugin } from 'soft-delete-plugin-mongoose';
 
 
@@ -18,8 +19,8 @@ export class Extension {
     @Prop()
     location: string;
 
-    @Prop()
-    director: string;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' })
+    director: Employee;
 
     @Prop()
     slug: string;

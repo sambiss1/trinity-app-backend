@@ -28,7 +28,7 @@ export class ServicesController {
   // Get one
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.servicesService.findOne(+id);
+    return this.servicesService.findOne(id);
   }
 
   // Update one

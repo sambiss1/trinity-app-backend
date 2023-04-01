@@ -18,8 +18,8 @@ export class CompanyController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.companyService.findOne(+id);
+  findOne(@Param('id') id: string) {
+    return this.companyService.findOne(id);
   }
 
   @Patch(':id')

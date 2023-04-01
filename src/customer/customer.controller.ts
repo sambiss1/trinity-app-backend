@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -23,6 +23,12 @@ export class CustomerController {
   @Get("/extension/:extension")
   findByExtension(@Param("extension") extension: string) {
     return this.customerService.findByExtension(extension);
+  }
+
+  // Get by company
+  @Get("/company/")
+  findByCompany(@Query("company") company: string) {
+    return this.customerService.findByCompany(company);
   }
 
   // Get one

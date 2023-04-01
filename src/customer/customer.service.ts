@@ -4,6 +4,7 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Customer, CustomerDocument } from 'src/schemas/customer.schema';
+import { ObjectId } from 'mongoose';
 
 @Injectable()
 export class CustomerService {
@@ -24,6 +25,11 @@ export class CustomerService {
   // Find all customers by extension
   async findByExtension(extension: string) {
     return this.customerModel.find().where({ extension }).populate("extension")
+  }
+
+
+  async findByCompany(company: string) {
+    return this.customerModel.find({ company }).populate("extension")
   }
 
   // Find one customer

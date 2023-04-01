@@ -30,9 +30,8 @@ export class ServicesService {
 
 
   // Find one
-  async findOne(id: number) {
-    return await this.serviceModel.findOne({ id })
-      // .populate("company")
+  async findOne(id: string) {
+    return await this.serviceModel.findOne({ id }).populate("company")
   }
 
   // Update one

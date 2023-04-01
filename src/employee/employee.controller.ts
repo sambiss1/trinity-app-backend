@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req, Request } from '@nestjs/common';
+
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -18,6 +19,21 @@ export class EmployeeController {
     return this.employeeService.findAll();
   }
 
+
+  @Get("/company/:company")
+  findByCompany(@Param("company") company: string) {
+    return this.employeeService.findByCompany(company)
+  }
+
+  @Get("/new/:company")
+  findNewEmployees(@Param("company") company: string) {
+    return this.employeeService.findNewEmployees(company)
+  }
+  @Get("/name/company")
+  findAndSortByName(@Query("company") company: string) {
+    return this.employeeService.findAndSortByName(company)
+  }
+
   @Get("/deleted")
   findDeleted() {
     return this.employeeService.findDeleted();
@@ -28,10 +44,6 @@ export class EmployeeController {
     return this.employeeService.findOne(id);
   }
 
-  @Get("/name")
-  sortByName() {
-    return this.employeeService.sortByName();
-  }
 
   @Get("/extension/:extension")
   findByExtension(@Param("extension") extension: string) {
@@ -44,8 +56,13 @@ export class EmployeeController {
   }
 
 
+
+  // @Get("/director")
+  // findDirectorByExtension(@Req() extension: string, position: string,) {
+  //   return this.employeeService.findDirectorByExtension(extension, position);
+  // }
   @Get("/director")
-  findDirectorByExtension(@Query("extension",) extension: string, @Param("position",) position: string,) {
+  findDirectorByExtension(@Req() req: Request, @Query("extension") extension: string, @Query("position") position: string) {
     return this.employeeService.findDirectorByExtension(extension, position);
   }
 

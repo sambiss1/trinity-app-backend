@@ -34,22 +34,32 @@ export class EmployeeService {
     return await this.employeeModel.find().where({ extension }).populate([{ path: "extension" }, { path: "position" }])
   }
 
+  // Get user by company
+  async findByCompany(company: string) {
+    return await this.employeeModel.find().where({ company: company }).populate([{ path: "extension" }, { path: "position" }])
+   
+  }
+
   // Find director by extension
   async findDirectorByExtension(extension: string, position: string) {
-    return await this.employeeModel.findOne().where({ position, extension }).populate([{ path: "extension" }, { path: "position" }])
+    return await this.employeeModel.findOne().where({ position: position, extension: extension }).populate([{ path: "extension" }, { path: "position" }])
   }
 
   // Find by Position
   async findByPosition(id: string) {
-    // return await this.employeeModel.find({ position: { _id: id } })
-    // return await this.employeeModel.find().where({ position }).populate([{ path: "extension" }])
     return await this.employeeModel.find().where({ position: id }).populate([{ path: "extension" }])
   }
 
-  // Filtered by
-  async sortByName() {
-    return await this.employeeModel.find().sort({ name: 1 }).populate([{ path: "extension" }, { path: "position" }])
+  // Get last inserted employees
+  async findNewEmployees(company: string) {
+    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).limit(3).populate([{ path: "extension" }, { path: "position" }])
   }
+
+  // A - Z
+  async findAndSortByName(company: string) {
+    return await this.employeeModel.find({ "extension": { company: company.toString() } }).where().sort({ name: 1 }).limit(10).populate([{ path: "extension" }, { path: "position" }])
+  }
+
 
   async update(id: string, Employee: Employee): Promise<Employee> {
     return await this.employeeModel.findByIdAndUpdate(id, Employee, { new: true })

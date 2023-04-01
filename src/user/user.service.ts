@@ -27,7 +27,7 @@ export class UserService {
     const { email } = createUserDto;
     const user = await this.userModel.findOne({ email });
     if (user) {
-      throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
     const createdUser = await new this.userModel(createUserDto).save();
     return createdUser;
@@ -45,8 +45,8 @@ export class UserService {
     return await this.userModel.find().where({ company: company });
   }
 
-  async findOne(name: string): Promise<any> {
-    return this.userModel.find({ name });
+  async findOne(id: string): Promise<User> {
+    return await this.userModel.findOne({ id }).populate("company");
   }
 
   async findByLogin(UserDTO: LoginDTO) {

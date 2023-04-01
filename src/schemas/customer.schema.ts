@@ -27,7 +27,6 @@ export class Customer {
     @Prop()
     phone: string;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Extension' })
     @Prop({ type: String, ref: 'Extension' })
     extension: Extension;
 }

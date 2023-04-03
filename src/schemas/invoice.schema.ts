@@ -21,16 +21,6 @@ export class Invoice {
     @Prop()
     currency: string;
 
-    @Prop([Number])
-    quantity: number;
-
-    @Prop([Number])
-    unitPrice: number;
-    
-
-    @Prop([Number])
-    totalPrice: number;
-
     @Prop()
     payed: boolean;
 

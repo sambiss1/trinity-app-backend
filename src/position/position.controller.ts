@@ -15,33 +15,37 @@ export class PositionController {
     return this.positionService.create(createPositionDto);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.positionService.findAll();
   }
 
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(":company")
   findByCompany(@Param("company") company: string) {
     return this.positionService.findByCompany(company);
   }
 
-
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.positionService.findOne(id);
   }
+
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(@Param('id') id: string, @Body() position: Position) {
     return this.positionService.update(id, position);
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.positionService.remove(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete()
   deleteAll() {
     return this.positionService.deleteAll();

@@ -32,6 +32,19 @@ export class CustomerService {
     return this.customerModel.find({ company }).populate("extension")
   }
 
+
+  // Get last inserted Customers
+  async findNewCustomers() {
+    return await this.customerModel.find().sort({ createdAt: -1 }).limit(10).populate("extension")
+  }
+
+  // Count last inserted Customers
+  // Get last inserted Customers
+  async countNewCustomers() {
+    return await this.customerModel.countDocuments().sort({ createdAt: -1 }).limit(10).count()
+  }
+
+
   // Find one customer
   async findOne(id: string) {
     return await this.customerModel.findById(id).populate("extension")

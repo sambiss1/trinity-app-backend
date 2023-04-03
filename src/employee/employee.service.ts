@@ -37,7 +37,7 @@ export class EmployeeService {
   // Get user by company
   async findByCompany(company: string) {
     return await this.employeeModel.find().where({ company: company }).populate([{ path: "extension" }, { path: "position" }])
-   
+
   }
 
   // Find director by extension
@@ -52,13 +52,21 @@ export class EmployeeService {
 
   // Get last inserted employees
   async findNewEmployees(company: string) {
-    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).limit(3).populate([{ path: "extension" }, { path: "position" }])
+    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).limit(10).populate([{ path: "extension" }, { path: "position" }])
+  }
+
+  // Count last inserted employees
+  // Get last inserted employees
+  async countNewEmployees(company: string) {
+    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).limit(10).count()
   }
 
   // A - Z
   async findAndSortByName(company: string) {
     return await this.employeeModel.find({ "extension": { company: company.toString() } }).where().sort({ name: 1 }).limit(10).populate([{ path: "extension" }, { path: "position" }])
   }
+
+
 
 
   async update(id: string, Employee: Employee): Promise<Employee> {

@@ -30,26 +30,18 @@ nest build
 
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
 
 ## Variables d'environnement
 
 ```bash
 # Database connection
-$ DB_CONNECTION
+$ DB_USERNAME
 
-# Port
+$ DB_PASSWORD
+
+$ DB_CLUSTER
+
+# Port d'execution du projet
 $ PORT
 
 ```

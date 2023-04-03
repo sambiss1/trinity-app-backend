@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 import { Invoice, InvoiceDocument } from 'src/schemas/invoice.schema';
+import { REQUEST } from '@nestjs/core';
+import { Request } from 'express';
 
+
+
+// { scope: Scope.REQUEST }
 @Injectable()
 export class InvoiceService {
 
@@ -22,14 +27,26 @@ export class InvoiceService {
     return this.invoiceModel.find().populate("customer extension tasks");
   }
 
+
   // Find one
-  async findOneById(id: string, num: string) {
-    return await this.invoiceModel.findById(id).where({ num }).populate("customer extension tasks");
+  // async findOneById(id: string): Promise<Invoice> {
+  //   console.log({ id })
+  //   return await this.invoiceModel.findOne({ where: { _id: id } }).exec()
+
+  //   // .populate("customer extension tasks");
+  // }
+
+  async findThisById(id: string) {
+    return await this.invoiceModel.findById(id).populate("customer extension tasks");
   }
 
   // Find customers invoice
   async findByCustomer(customer: string) {
-    return await this.invoiceModel.find().where({ customer: customer }).populate("customer extension tasks");
+    return await this.invoiceModel.find().where({ customer }).populate("customer extension tasks");
+  }
+
+  async findInvoiceTask(tasks: string) {
+    return await this.invoiceModel.find().where({ tasks }).populate("customer extension tasks");
   }
 
   // Find extension invoice

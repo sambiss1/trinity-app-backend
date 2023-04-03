@@ -40,15 +40,14 @@ export class InvoiceController {
   @UseGuards(AuthGuard('jwt'))
   @Get("/customer/:customer")
   findByCustomer(@Param('customer') customer: string) {
-    return this.findByCustomer(customer)
+    return this.invoiceService.findByCustomer(customer)
   }
 
   // Get one
   @UseGuards(AuthGuard('jwt'))
-  @Get('/:id/:num')
-  findOneById(@Param('id') id: string,
-    @Param('num') num: string) {
-    return this.invoiceService.findOneById(id, num)
+  @Get('/single/:id')
+  findThisById(@Param('id') id: string) {
+    return this.invoiceService.findThisById(id)
   }
 
 
@@ -66,7 +65,6 @@ export class InvoiceController {
   remove(@Param('id') id: string) {
     return this.invoiceService.remove(id);
   }
-
   // Delete all
   @UseGuards(AuthGuard('jwt'))
   @Delete()

@@ -31,7 +31,7 @@ export class ServicesController {
 
   // Get one
   @UseGuards(AuthGuard('jwt'))
-  @Get(":id")
+  @Get("/single/:id")
   findOne(@Param("id") id: string) {
     return this.servicesService.findOne(id);
   }
@@ -47,7 +47,7 @@ export class ServicesController {
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.servicesService.remove(+id);
+    return this.servicesService.remove(id);
   }
 
   //Delete Many  

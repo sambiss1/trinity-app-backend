@@ -40,7 +40,7 @@ export class ServicesService {
   }
 
   // Remove one
-  remove(id: number) {
+  remove(id: string) {
     const deleted = this.serviceModel.softDelete({ _id: id });
     return deleted;
   }

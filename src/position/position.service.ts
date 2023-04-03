@@ -35,7 +35,7 @@ export class PositionService {
   async update(id: string, Position: Position): Promise<Position> {
     return await this.positionModel.findByIdAndUpdate(id, Position, { new: true })
   }
-
+  
   // Remove one employee
   async remove(id: string) {
     const deleted = this.positionModel.softDelete({ _id: id });

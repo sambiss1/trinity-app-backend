@@ -32,7 +32,6 @@ export class ExtensionService {
   // Find one
   async findOne(id: string) {
     return await this.extensionModel.findOne({ id }).populate("company");
-
   }
 
   // Update one

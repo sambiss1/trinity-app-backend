@@ -18,20 +18,21 @@ export class Task {
     @Prop({ required: true })
     description: string;
 
-    @Prop([String])
-    substasks: string[];
-
     @Prop()
     start_date: Date;
 
     @Prop()
     due_date: Date;
 
-
     @Prop()
     status: number;
 
-    // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Service' })
+    @Prop()
+    price: number;
+
+    @Prop()
+    curreny: string;
+
     @Prop({ type: String, ref: 'Service' })
     service: Service;
 

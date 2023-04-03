@@ -32,8 +32,9 @@ export class TaskService {
   }
 
   // Find one
-  async findOne(id: number) {
-    return await this.taskModel.findOne({ id }).populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
+  async findOne(_id: string): Promise<Task> {
+    return await this.taskModel.findById({ _id }).where({ _id: _id })
+    // .populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
   }
 
 
@@ -44,13 +45,10 @@ export class TaskService {
   }
 
   // Delete one
-  async remove(id: number) {
+  async remove(id: string) {
     const deleted = this.taskModel.softDelete({ _id: id });
     return deleted;
   }
-
-
-
 
   // remove many 
   async deleteAll() {

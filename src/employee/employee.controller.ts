@@ -70,6 +70,16 @@ export class EmployeeController {
     return this.employeeService.findByPosition(id);
   }
 
+
+  // Search
+  @UseGuards(AuthGuard('jwt'))
+  @Get("/search/:name")
+  searchByName(@Param("name") name: string) {
+    return this.employeeService.searchByName(name);
+  }
+
+  
+
   @UseGuards(AuthGuard('jwt'))
   @Get("/director")
   findDirectorByExtension(@Req() req: Request, @Query("extension") extension: string, @Query("position") position: string) {

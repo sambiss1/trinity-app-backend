@@ -58,7 +58,7 @@ export class EmployeeService {
   // Count last inserted employees
   // Get last inserted employees
   async countNewEmployees(company: string) {
-    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).limit(10).count()
+    return await this.employeeModel.find().where({ company: company }).sort({ createdAt: -1 }).count()
   }
 
   // A - Z
@@ -66,7 +66,9 @@ export class EmployeeService {
     return await this.employeeModel.find({ "extension": { company: company.toString() } }).where().sort({ name: 1 }).limit(10).populate([{ path: "extension" }, { path: "position" }])
   }
 
-
+  async searchByName(name: string): Promise<Employee> {
+    return await this.employeeModel.findOne().where({name: name}).populate([{ path: "extension" }])
+  }
 
 
   async update(id: string, Employee: Employee): Promise<Employee> {

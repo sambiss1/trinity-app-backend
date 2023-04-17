@@ -3,7 +3,7 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import { AuthGuard } from '@nestjs/passport';
-
+import { Service } from 'src/schemas/services.schemas';
 @Controller("api/services")
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) { }
@@ -38,9 +38,9 @@ export class ServicesController {
 
   // Update one
   @UseGuards(AuthGuard('jwt'))
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServiceDto: UpdateServiceDto) {
-    return this.servicesService.update(+id, updateServiceDto);
+  @Patch('/edit/:id')
+  update(@Param('id') id: string, @Body() service: Service) {
+    return this.servicesService.update(id, service);
   }
 
   // Delete one

@@ -35,8 +35,9 @@ export class ServicesService {
   }
 
   // Update one
-  async update(id: number, updateServiceDto: UpdateServiceDto) {
-    return await this.serviceModel.updateOne({ id }, { $set: { ...updateServiceDto } });
+  async update(id: string, Service: Service): Promise<Service> {
+    // return await this.serviceModel.findByIdAndUpdate({ id }, { $set: { ...updateServiceDto } });
+    return await this.serviceModel.findByIdAndUpdate(id, Service, { new: true });
   }
 
   // Remove one

@@ -29,13 +29,13 @@ export class PositionController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get(':id')
+  @Get('/single/:id')
   findOne(@Param('id') id: string) {
     return this.positionService.findOne(id);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Patch(':id')
+  @Patch('/edit/:id')
   update(@Param('id') id: string, @Body() position: Position) {
     return this.positionService.update(id, position);
   }

@@ -87,7 +87,7 @@ export class EmployeeController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Patch(':id')
+  @Patch('/edit/:id')
   update(@Param('id') id: string, @Body() employee: Employee) {
     return this.employeeService.update(id, employee);
   }

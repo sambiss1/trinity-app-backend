@@ -24,7 +24,7 @@ export class Employee {
     email: string;
 
     @Prop()
-    phone_number: string;
+    phone_number: number;
 
     @Prop()
     civil_status: string;

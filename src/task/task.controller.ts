@@ -38,6 +38,12 @@ export class TaskController {
 
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('/filter/employee/:employee')
+  findByEmploye(@Param('employee') id: string) {
+    return this.taskService.findByEmploye(id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   update(@Param('id') id: string, @Body() task: Task) {
     return this.taskService.update(id, task);

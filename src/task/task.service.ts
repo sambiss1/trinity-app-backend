@@ -31,6 +31,12 @@ export class TaskService {
     return await this.taskModel.find().where({ customer }).populate([{ path: "service" }, { path: "taskers" }])
   }
 
+
+  // Find employee tasks
+  async findByEmploye(employee: string) {
+    return await this.taskModel.find().where({ taskers: { $in: employee } }).populate([{ path: "service" }, { path: "taskers" }])
+  }
+
   // Find one
   async findOne(id: string): Promise<Task> {
     return await this.taskModel.findById(id).populate([{ path: "service" }, { path: "taskers" }, { path: "customer" }]);
